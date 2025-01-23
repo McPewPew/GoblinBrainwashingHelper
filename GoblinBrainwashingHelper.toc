@@ -1,0 +1,7 @@
+## Interface: 11200
+## Title: Goblin Brainwashing Helper
+## Notes: Customise your Goblin Brainwashing Device with specialisation names and colours
+## Version: 0.1
+## Author: McPewPew
+## SavedVariablesPerCharacter: GBHSpec, RGBSpec
+GoblinBrainwashingHelper.lua
