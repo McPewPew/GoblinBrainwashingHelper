@@ -10,10 +10,10 @@ RGBSpec[i] = RGBSpec[i] or {1, 0, 0} -- set default color
 end
 
 local textFrame = CreateFrame("Frame", "GoblinBrainwashingTextFrame", GossipFrame)
-textFrame:SetWidth(133)
+textFrame:SetWidth(139)
 textFrame:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background"})
 textFrame:SetBackdropColor(0, 0, 0, 0.7)
-textFrame:SetPoint("TOPLEFT", GossipFrame, "RIGHT", -29, 65)
+textFrame:SetPoint("TOPLEFT", GossipFrame, "RIGHT", -29, 38)
 textFrame:Hide()
 
 local helperButton = CreateFrame("Button", "ToggleTextFrameButton", GossipFrame, "UIPanelButtonTemplate")
@@ -62,7 +62,7 @@ local function CreatespecEditBox(parent, index)
     specEditBox:SetHeight(30)
     specEditBox:SetAutoFocus(false)
     specEditBox:SetMaxLetters(16)
-    specEditBox:SetPoint("TOP", parent, "TOP", -10, -38 * (index - 1) - 10)
+    specEditBox:SetPoint("TOPLEFT", parent, "TOPLEFT", 10, -23 * (index - 1))
 
     specRGBFrame = CreateFrame("Button", "specRGBFrame" .. index, parent)
     specRGBFrame:SetWidth(17)
@@ -143,7 +143,7 @@ frame:SetScript("OnEvent", function()
                     specEditBox:Hide()
                 end
             end
-            local newHeight = activateCount * 38
+            local newHeight = 10 + activateCount * 22
             textFrame:SetHeight(newHeight)
             UpdateGossipOptions()
         else
