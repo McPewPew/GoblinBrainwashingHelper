@@ -71,7 +71,7 @@ local function CreatespecEditBox(parent, index)
 
     specRGBTexture = specRGBFrame:CreateTexture(nil, "BACKGROUND")
     specRGBTexture:SetAllPoints()
-    specRGBTexture:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    specRGBTexture:SetTexture("Interface\\Buttons\\WHITE8X8")
     specRGBTexture:SetVertexColor(unpack(RGBSpec[index] or {0.5, 0.5, 0.5}))
     specRGBFrame.texture = specRGBTexture
 
