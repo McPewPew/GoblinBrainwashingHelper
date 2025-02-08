@@ -38,9 +38,9 @@ end)
 -- save button (of lies, it just closes the frame so the gossip window has to be opened again with the new text/colors)
 local saveButton = CreateFrame("Button", "GoblinBrainwashingSaveButton", textFrame, "UIPanelButtonTemplate")
 saveButton:SetWidth(45)
-saveButton:SetHeight(18)
+saveButton:SetHeight(17)
 saveButton:SetText("Save")
-saveButton:SetPoint("BOTTOM", textFrame, "BOTTOM", 0, 6)
+saveButton:SetPoint("BOTTOM", textFrame, "BOTTOM", 0, 7)
 saveButton:SetScript("OnClick", function()
     CloseGossip()
 end)
@@ -79,9 +79,9 @@ local function CreatespecEditBox(parent, index)
     specEditBox:SetPoint("TOPLEFT", parent, "TOPLEFT", 11, -23 * (index - 1))
 
     specRGBFrame = CreateFrame("Button", "specRGBFrame" .. index, parent)
-    specRGBFrame:SetWidth(17)
-    specRGBFrame:SetHeight(17)
-    specRGBFrame:SetPoint("LEFT", specEditBox, "RIGHT", 5, 0)
+    specRGBFrame:SetWidth(16)
+    specRGBFrame:SetHeight(16)
+    specRGBFrame:SetPoint("LEFT", specEditBox, "RIGHT", 5, -1)
 
     specRGBTexture = specRGBFrame:CreateTexture(nil, "BACKGROUND")
     specRGBTexture:SetAllPoints()
@@ -157,7 +157,7 @@ frame:SetScript("OnEvent", function()
                     specEditBox:Hide()
                 end
             end
-            local newHeight = 29 + activateCount * 22
+            local newHeight =  26+ (activateCount) * 23  --43
             textFrame:SetHeight(newHeight)
             UpdateGossipOptions()
         else
