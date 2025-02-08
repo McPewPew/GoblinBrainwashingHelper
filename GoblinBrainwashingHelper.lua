@@ -1,6 +1,8 @@
 DEFAULT_CHAT_FRAME:AddMessage("|cffa86cf1A |cffffc72cstraw|cffa86cf1 for every |cff85af67turtle|cffa86cf1? How generous!")
 local frame = CreateFrame("Frame", "GoblinBrainwashingAddonFrame", UIParent)
 
+local _G = getfenv(0) -- implements _G
+
 -- SavedVariablesPerCharacter
 GBHSpec = GBHSpec or {}
 RGBSpec = RGBSpec or {} 
@@ -10,11 +12,17 @@ RGBSpec[i] = RGBSpec[i] or {1, 0, 0} -- set default color
 end
 
 local textFrame = CreateFrame("Frame", "GoblinBrainwashingTextFrame", GossipFrame)
-textFrame:SetWidth(139)
-textFrame:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background"})
+textFrame:SetWidth(140)
+--textFrame:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background"})
 textFrame:SetBackdropColor(0, 0, 0, 0.7)
 textFrame:SetPoint("TOPLEFT", GossipFrame, "RIGHT", -29, 38)
 textFrame:Hide()
+textFrame:SetBackdrop({
+    bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    tile = true, tileSize = 16, edgeSize = 16,
+    insets = { left = 4, right = 4, top = 4, bottom = 4 }
+})
 
 local helperButton = CreateFrame("Button", "ToggleTextFrameButton", GossipFrame, "UIPanelButtonTemplate")
 helperButton:SetWidth(45)
@@ -22,13 +30,19 @@ helperButton:SetHeight(18)
 helperButton:SetText("Helper")
 helperButton:SetPoint("TOPLEFT", GossipFrame, "TOPRIGHT", -101, -22)
 helperButton:Hide()
-
 helperButton:SetScript("OnClick", function()
-    if textFrame:IsShown() then
-        textFrame:Hide()
-    else
+        helperButton:Hide()
         textFrame:Show()
-    end
+end)
+
+-- save button (of lies, it just closes the frame so the gossip window has to be opened again with the new text/colors)
+local saveButton = CreateFrame("Button", "GoblinBrainwashingSaveButton", textFrame, "UIPanelButtonTemplate")
+saveButton:SetWidth(45)
+saveButton:SetHeight(18)
+saveButton:SetText("Save")
+saveButton:SetPoint("BOTTOM", textFrame, "BOTTOM", 0, 6)
+saveButton:SetScript("OnClick", function()
+    CloseGossip()
 end)
 
 	-- update colour of index specRGBFrame/GBSpec
@@ -62,7 +76,7 @@ local function CreatespecEditBox(parent, index)
     specEditBox:SetHeight(30)
     specEditBox:SetAutoFocus(false)
     specEditBox:SetMaxLetters(16)
-    specEditBox:SetPoint("TOPLEFT", parent, "TOPLEFT", 10, -23 * (index - 1))
+    specEditBox:SetPoint("TOPLEFT", parent, "TOPLEFT", 11, -23 * (index - 1))
 
     specRGBFrame = CreateFrame("Button", "specRGBFrame" .. index, parent)
     specRGBFrame:SetWidth(17)
@@ -143,7 +157,7 @@ frame:SetScript("OnEvent", function()
                     specEditBox:Hide()
                 end
             end
-            local newHeight = 10 + activateCount * 22
+            local newHeight = 29 + activateCount * 22
             textFrame:SetHeight(newHeight)
             UpdateGossipOptions()
         else
